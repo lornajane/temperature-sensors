@@ -2,6 +2,7 @@ import paho.mqtt.client as mqtt
 from sense_hat import SenseHat
 import socket
 import time
+import uuid
 
 sensor = SenseHat()
 broker_address="10.1.0.1" 
@@ -11,7 +12,8 @@ def get_ip_address():
     s.connect(("8.8.8.8", 80))
     return s.getsockname()[0]
 
-client = mqtt.Client("P1") #create new instance
+client_name = uuid.uuid4()
+client = mqtt.Client(str(client_name)) #create new instance
 client.connect(broker_address) #connect to broker
 ip = get_ip_address() # get current IP so we can ID ourselves
 
