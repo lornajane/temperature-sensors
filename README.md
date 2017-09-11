@@ -21,3 +21,34 @@ ExecStart=/usr/bin/python3 /home/pi/code/temperature-sensors/temperature_to_mqtt
 WantedBy=multi-user.target
 
 ```
+
+## To install the server part
+
+The server part will listen to MQTT and the messages from all the sensors, and write the values to a postgresql database.
+
+The database needs a table called `temperature_reading` which looks like this:
+
+```
+house_metrics=> \d temperature_reading
+                                                     Table "public.temperature_reading"
+         Column         |            Type             |                                      Modifiers                                       
+------------------------+-----------------------------+--------------------------------------------------------------------------------------
+ temperature_reading_id | integer                     | not null default nextval('temperature_reading_temperature_reading_id_seq'::regclass)
+ sensor_id              | integer                     | not null
+ created_at             | timestamp without time zone | 
+ value                  | real                        | 
+ units                  | character varying(10)       | 
+Indexes:
+    "temperature_reading_id" PRIMARY KEY, btree (temperature_reading_id)
+
+```
+
+The code is in `/mqtt_to_postgres/postgres.py` and this script needs the environment variable `PGPASSWORD` when it is run.  Run `pip3 install -r requirements.txt` in the directory to get the dependencies, then run the script like this:
+
+```
+PGPASSWORD=secret python3 postgres.py
+```
+
+As for the sensor, this code wants to live under systemd or similar since if any readings are missed, they can't be recovered.
+
+
