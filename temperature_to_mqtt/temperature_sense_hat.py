@@ -18,5 +18,5 @@ ip = get_ip_address() # get current IP so we can ID ourselves
 while True:
 	temperature_in_celsius = sensor.get_temperature()
 	# print("Publishing message to topic","/house/temperature")
-	client.publish("/house/temperature",'{"temperature": {"value": ' + str(temperature_in_celsius) + ', "units": "C"}, "from_ip": ' + str(ip) + '}')
+	client.publish("/house/temperature",'{"temperature": {"value": ' + str(temperature_in_celsius) + ', "units": "C"}, "from_ip": "' + str(ip) + '"}')
 	time.sleep(5);
