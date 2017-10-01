@@ -5,7 +5,7 @@ import time
 
 broker_address="10.1.0.1"
 
-client = mqtt.Client("P1") #create new instance
+client = mqtt.Client() #create new instance
 client.connect(broker_address) #connect to broker
 
 while True:
