@@ -7,10 +7,9 @@ def on_connect(client, userdata, flags, rc):
 
 def on_message(client, userdata, msg):
     data = json.loads((msg.payload).decode("utf8"))
-    sensor_pieces = data['from_ip'].split('.')
 
     cur = conn.cursor()
-    cur.execute("INSERT INTO temperature_reading (sensor_id, created_at, value, units) VALUES (%(sensor_id)s, NOW(), %(value)s, 'C');", {'sensor_id': sensor_pieces[3], 'value': data['temperature']['value']})
+    cur.execute("INSERT INTO temperature_reading (sensor_id, created_at, value, units) VALUES (%(sensor_id)s, NOW(), %(value)s, 'C');", {'sensor_id': data['from_ip'], 'value': data['temperature']['value']})
     conn.commit()
 
 # set up MQTT client

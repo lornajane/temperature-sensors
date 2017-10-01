@@ -34,7 +34,7 @@ house_metrics=> \d temperature_reading
          Column         |            Type             |                                      Modifiers                                       
 ------------------------+-----------------------------+--------------------------------------------------------------------------------------
  temperature_reading_id | integer                     | not null default nextval('temperature_reading_temperature_reading_id_seq'::regclass)
- sensor_id              | integer                     | not null
+ sensor_id              | character varying(100)      | not null
  created_at             | timestamp without time zone | 
  value                  | real                        | 
  units                  | character varying(10)       | 
