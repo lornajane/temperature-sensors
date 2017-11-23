@@ -12,7 +12,7 @@ while True:
     for sensor in W1ThermSensor.get_available_sensors():
         temperature_in_celsius = sensor.get_temperature()
         # print("Publishing message to topic","/house/temperature")
-        client.publish("/house/temperature",'{"temperature": {"value": ' + str(temperature_in_celsius) + ', "units": "C"}, "sensor_id": ' + sensor.id + '}')
+        client.publish("/house/temperature",'{"temperature": {"value": ' + str(temperature_in_celsius) + ', "units": "C"}, "sensor_id": "' + sensor.id + '"}')
 
     time.sleep(5);
 
