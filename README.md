@@ -4,7 +4,8 @@ A repo to keep the code for the various not-quite-the-same devices we use to mea
 
 ## To install a sensor
 
-You will need the [W1ThermSensor](https://github.com/timofurrer/w1thermsensor) library: sudo apt-get install python3-w1thermsensor
+You will need the [W1ThermSensor](https://github.com/timofurrer/w1thermsensor) library: `sudo apt-get install python3-w1thermsensor`
+
 
 Clone the repo, run `pip3 install -r requirements.txt` in the `temperature_to_mqtt` directory.  Then set up a script to automatically run the appropriate script for your pi when it boots (something like this https://www.raspberrypi-spy.co.uk/2015/10/how-to-autorun-a-python-script-on-boot-using-systemd/)
 
@@ -54,3 +55,10 @@ PGPASSWORD=secret python3 postgres.py
 As for the sensor, this code wants to live under systemd or similar since if any readings are missed, they can't be recovered.
 
 
+## Troubleshooting
+
+If you're seeing errors about the paho module, check that you see `w1-therm` in the output of the `lsmod` command.  If not, add this line to `/boot/config.txt` and reboot the pi:
+
+```
+dtoverlay=w1-gpio
+```
