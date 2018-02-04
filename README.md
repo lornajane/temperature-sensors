@@ -25,6 +25,8 @@ WantedBy=multi-user.target
 
 ```
 
+Then do `sudo systemctl enable temperature.service` to make it run every time.
+
 ## To install the server part
 
 The server part will listen to MQTT and the messages from all the sensors, and write the values to a postgresql database.
@@ -60,5 +62,7 @@ As for the sensor, this code wants to live under systemd or similar since if any
 If you're seeing errors about the paho module, check that you see `w1-therm` in the output of the `lsmod` command.  If not, add this line to `/boot/config.txt` and reboot the pi:
 
 ```
-dtoverlay=w1-gpio
+dtoverlay=w1-gpio,gpiopin=gpiopin=5
 ```
+
+Where 5 is the pin you've used (for example if something else is using your default pin 4)
